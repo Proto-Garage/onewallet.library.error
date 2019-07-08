@@ -18,7 +18,12 @@
     "noUnusedParameters": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "lib": ["es7"]
+    "lib": [
+      "esnext",
+      "dom"
+    ]
   },
-  "include": ["src/**/*", "src/**/*.d.ts"]
+  "include": [
+    "src/**/*"
+  ]
 }

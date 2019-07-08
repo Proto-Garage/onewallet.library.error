@@ -25,4 +25,12 @@ describe('AppError', () => {
       expect(error.message).to.equal('Test error');
     });
   });
+
+  describe('Given a meta data', () => {
+    it('should stringify correctly', () => {
+      const error = new AppError('TEST_ERROR', 'Test error', { one: 1 });
+
+      expect(JSON.stringify(error)).to.deep.equal('{"one":1,"code":"TEST_ERROR","message":"Test error"}');
+    });
+  });
 });

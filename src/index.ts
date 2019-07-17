@@ -3,7 +3,7 @@ import R from 'ramda';
 import serializeError from 'serialize-error';
 import knownErrors from './known-errors';
 
-class BaseError<TAttributes = Record<string, any>> extends Error {
+class BaseError extends Error {
   public constructor(
     public readonly code: string,
     message: string,
@@ -12,7 +12,7 @@ class BaseError<TAttributes = Record<string, any>> extends Error {
     super(message);
   }
 
-  public toJSON(): TAttributes & { code: string; message: string; stack: string } {
+  public toJSON(): Record<string, any> {
     return {
       ...(this.meta || {}) as any,
       code: this.code,
@@ -23,14 +23,14 @@ class BaseError<TAttributes = Record<string, any>> extends Error {
 }
 
 type Service = keyof typeof knownErrors;
-export class AppError<TAttributes = Record<string, any>>
-  extends BaseError<TAttributes> {
+export class AppError
+  extends BaseError {
   public readonly service: Service;
 
   public constructor(
     code: string,
     message: string,
-    meta?: TAttributes,
+    meta?: Record<string, any>,
     service?: Service,
   ) {
     super(code, message, meta);
@@ -43,12 +43,7 @@ export class AppError<TAttributes = Record<string, any>>
   /**
    * Serialize error object so that it can be sent via network.
    */
-  public toJSON(): TAttributes & {
-    code: string;
-    message: string;
-    stack: string;
-    service: Service;
-  } {
+  public toJSON(): Record<string, any> {
     return {
       ...super.toJSON(),
       service: this.service,
@@ -58,12 +53,7 @@ export class AppError<TAttributes = Record<string, any>>
   /**
    * Create an AppError given a serialized error object.
    */
-  public static fromJSON(obj: Record<string, any> & {
-    code: string;
-    message: string;
-    stack: string;
-    service: Service;
-  }) {
+  public static fromJSON(obj: Record<string, any>) {
     const error = new this(obj.code, obj.message, R.omit(['code', 'message', 'stack', 'service'])(obj), obj.service);
     error.stack = obj.stack;
     return error;
@@ -78,7 +68,7 @@ export enum APIErrorCode {
   ServerError = 'SERVER_ERROR'
 }
 
-export class APIError<TAttributes = Record<string, any>> extends BaseError<TAttributes> {
+export class APIError extends BaseError {
   public constructor(
     public readonly code: APIErrorCode,
     message: string,

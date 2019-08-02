@@ -1,9 +1,18 @@
-export default class AppError extends Error {
+export default class AppError<T = Record<string, any>> extends Error {
     readonly code: string;
-    private readonly meta;
+    private readonly meta?;
     readonly service?: string;
-    constructor(code: string, message: string, meta?: Record<string, any>);
-    toJSON(): {
+    readonly id: string;
+    constructor(code: string, message: string, meta?: T | undefined);
+    toJSON(): (T & {
+        id: string;
+        name: string;
+        code: string;
+        message: string;
+        stack: string | undefined;
+        service: string | undefined;
+    }) | {
+        id: string;
         name: string;
         code: string;
         message: string;

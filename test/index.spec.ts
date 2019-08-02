@@ -27,7 +27,7 @@ describe('AppError', () => {
 
     describe('Given a meta parameter', () => {
       it('should include meta properties', () => {
-        const error = new AppError('TEST_ERROR', 'Test error', { one: 1, two: 2 });
+        const error = new AppError<{ one: number; two: number }>('TEST_ERROR', 'Test error', { one: 1, two: 2 });
 
         expect(error.toJSON()).to.has.all.keys(['id', 'name', 'code', 'message', 'stack', 'service', 'one', 'two']);
       });

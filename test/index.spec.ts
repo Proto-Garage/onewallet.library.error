@@ -21,7 +21,7 @@ describe('AppError', () => {
       it('should return an object with name, code, message, stack and service properties', () => {
         const error = new AppError('TEST_ERROR', 'Test error');
 
-        expect(error.toJSON()).to.has.all.keys(['name', 'code', 'message', 'stack', 'service']);
+        expect(error.toJSON()).to.has.all.keys(['id', 'name', 'code', 'message', 'stack', 'service']);
       });
     });
 
@@ -29,7 +29,7 @@ describe('AppError', () => {
       it('should include meta properties', () => {
         const error = new AppError('TEST_ERROR', 'Test error', { one: 1, two: 2 });
 
-        expect(error.toJSON()).to.has.all.keys(['name', 'code', 'message', 'stack', 'service', 'one', 'two']);
+        expect(error.toJSON()).to.has.all.keys(['id', 'name', 'code', 'message', 'stack', 'service', 'one', 'two']);
       });
     });
   });

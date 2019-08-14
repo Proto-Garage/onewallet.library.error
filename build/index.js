@@ -16,6 +16,10 @@ class AppError extends Error {
     toJSON() {
         return Object.assign({}, this.meta, { id: this.id, name: this.name, code: this.code, message: this.message, stack: this.stack, service: this.service });
     }
+    isKnown() {
+        return this.code === 'ACCOUNT_NOT_FOUND'
+            || (this.code === 'INSUFFICIENT_FUNDS' && this.service === 'Payment');
+    }
 }
 exports.default = AppError;
 //# sourceMappingURL=index.js.map

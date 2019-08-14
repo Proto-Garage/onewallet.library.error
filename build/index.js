@@ -18,7 +18,7 @@ class AppError extends Error {
     }
     isKnown() {
         return this.code === 'ACCOUNT_NOT_FOUND'
-            || (this.code === 'INSUFFICIENT_FUNDS' && this.service === 'Payment');
+            || this.code === 'INSUFFICIENT_FUNDS';
     }
 }
 exports.default = AppError;

@@ -14,7 +14,7 @@ export default class AppError<T = Record<string, any>> extends Error {
     super(message);
 
     this.name = 'AppError';
-    this.service = process.env.SERVICE_NAME || service;
+    this.service = service || process.env.SERVICE_NAME;
   }
 
   /**

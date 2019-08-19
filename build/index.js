@@ -11,7 +11,7 @@ class AppError extends Error {
         this.meta = meta;
         this.id = shortid_1.default.generate();
         this.name = 'AppError';
-        this.service = process.env.SERVICE_NAME || service;
+        this.service = service || process.env.SERVICE_NAME;
     }
     toJSON() {
         return Object.assign({}, this.meta, { id: this.id, name: this.name, code: this.code, message: this.message, stack: this.stack, service: this.service });

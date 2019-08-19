@@ -32,6 +32,7 @@ export default class AppError<T = Record<string, any>> extends Error {
 
   public isKnown() {
     return this.code === 'ACCOUNT_NOT_FOUND'
-     || this.code === 'INSUFFICIENT_FUNDS';
+     || this.code === 'INSUFFICIENT_FUNDS'
+     || (this.service === 'Account' && this.code === 'ACCOUNT_EXISTS');
   }
 }

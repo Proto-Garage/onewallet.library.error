@@ -3,7 +3,7 @@ export default class AppError<T = Record<string, any>> extends Error {
     private readonly meta?;
     readonly service?: string;
     readonly id: string;
-    constructor(code: string, message: string, meta?: T | undefined);
+    constructor(code: string, message: string, meta?: T | undefined, service?: string);
     toJSON(): (T & {
         id: string;
         name: string;

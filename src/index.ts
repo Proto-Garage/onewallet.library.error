@@ -1,7 +1,7 @@
 import shortid from 'shortid';
 
 export default class AppError<T = Record<string, any>> extends Error {
-  public readonly service?: string = process.env.SERVICE_NAME;
+  public readonly service?: string;
 
   public readonly id: string = shortid.generate();
 
@@ -9,10 +9,12 @@ export default class AppError<T = Record<string, any>> extends Error {
     public readonly code: string,
     message: string,
     private readonly meta?: T,
+    service?: string,
   ) {
     super(message);
 
     this.name = 'AppError';
+    this.service = process.env.SERVICE_NAME || service;
   }
 
   /**

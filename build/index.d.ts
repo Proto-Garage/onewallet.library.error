@@ -19,6 +19,5 @@ export default class AppError<T = Record<string, any>> extends Error {
         stack: string | undefined;
         service: string | undefined;
     };
-    isKnown(): boolean;
 }
 //# sourceMappingURL=index.d.ts.map
